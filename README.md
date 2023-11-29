@@ -177,13 +177,13 @@ Fazer deploy do projeto e disponibilizar a URL.
 
 ## Aulas úteis:
 
--   [Revisão pt1]()
--   [Revisão pt2]()
--   [Git e fluxo de trabalho em equipe]()
--   [Deploy]()
--   [Envio de e-mails]()
--   [Validações e boas práticas]()
--   [Upload de arquivos]()
+-   [Revisão pt1](https://aulas.cubos.academy/turma/41c6a64e-cfc7-4fc4-9b5d-21d8dfde4e6f/aulas/34df4763-689b-409c-894b-248dacd70d81)
+-   [Revisão pt2](https://aulas.cubos.academy/turma/41c6a64e-cfc7-4fc4-9b5d-21d8dfde4e6f/aulas/6b733465-c761-40de-94ad-ac85a4129152)
+-   [Git e fluxo de trabalho em equipe](https://aulas.cubos.academy/turma/41c6a64e-cfc7-4fc4-9b5d-21d8dfde4e6f/aulas/2812eee7-5ba5-4e62-b2d0-7b392ba6b870)
+-   [Deploy](https://aulas.cubos.academy/turma/41c6a64e-cfc7-4fc4-9b5d-21d8dfde4e6f/aulas/4c75e05a-581d-427b-9cdc-527c1fab47b2)
+-   [Envio de e-mails](https://aulas.cubos.academy/turma/41c6a64e-cfc7-4fc4-9b5d-21d8dfde4e6f/aulas/9ae4e70f-f502-41c5-af47-c22e9c0880a7)
+-   [Validações e boas práticas](https://aulas.cubos.academy/turma/41c6a64e-cfc7-4fc4-9b5d-21d8dfde4e6f/aulas/19bcf6fa-5589-43ea-b6ed-a9817b9d51ae)
+-   [Upload de arquivos](https://aulas.cubos.academy/turma/41c6a64e-cfc7-4fc4-9b5d-21d8dfde4e6f/aulas/a124ac7e-9db8-4007-9532-cf0e84c8a6cc)
 
 
 ###### tags: `back-end` `módulo 5` `nodeJS` `PostgreSQL` `API REST` `desafio`
