@@ -21,7 +21,7 @@ const cadastrarUsuario = async (req, res) => {
         }
         return res.status(400).json(error.message)
     }
-}
+};
 
 const login = async (req, res) => {
     try {
@@ -35,14 +35,12 @@ const login = async (req, res) => {
     } catch (error) {
         return res.status(500).json(error.message)
     }
-}
+};
 
 const detalharUsuario = async (req, res) => {
     const { senha: _, ...usuario } = req.usuario
     return res.status(200).json({ usuario })
-}
-
-
+};
 
 const atualizarUsuario = async (req, res) => {
     let { nome, email, senha } = req.body;
@@ -88,7 +86,7 @@ const atualizarUsuario = async (req, res) => {
         console.log(error);
         return res.status(400).json(error.message);
     }
-}
+};
 
 
 module.exports = {
