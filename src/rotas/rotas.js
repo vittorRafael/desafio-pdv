@@ -1,10 +1,20 @@
 const express = require('express');
-const categorias = require('../controladores/categoria');
-const usuarios = require('../controladores/usuario');
-const rotas = express();
 
-rotas.get('/categoria', categorias.listarCategorias);
-rotas.post('/usuario', usuarios.cadastrarUsuario);
-rotas.post('/login', usuarios.login);
+const controladorCategorias = require('../controladores/controladorCategoria');
+const controladorUsuario = require('../controladores/controladorUsuario');
 
-module.exports = rotas
+const middlewareValidacao = require('../intermediario/intermediarioValidacaoBodyGenrico');
+const middlewareValidacaoAutenticacao = require('../intermediario/intermediarioValidarUsuarioExiste');
+
+const modeloUsuario = require('../modelos/modeloValidacaoUsuario');
+
+
+const rotas = express.Router();
+
+
+
+rotas.get('/categoria', controladorCategorias.listarCategorias);
+rotas.post('/usuario', middlewareValidacao.validarBodyRequisicao(modeloUsuario), controladorUsuario.cadastrarUsuario);
+rotas.post('/login', middlewareValidacaoAutenticacao.validarUsuarioExiste, controladorUsuario.login);
+
+module.exports = rotas;
