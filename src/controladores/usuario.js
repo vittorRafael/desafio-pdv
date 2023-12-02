@@ -52,14 +52,47 @@ const login = async (req, res) =>{
         }
 
         const token = jwt.sign({ id: usuario[0].id }, senhaHash, { expiresIn: '8h' })
+        
+        return res.status(200).json({
+            usuario: usuario[0].nome,
+            token
+        })
 
-        return res.status(204).json()
     } catch(error){
         return res.status(500).json(error.message)
     }
 }
 
+const detalharUsuario = async (req, res) => {
+    const { authorization } = req.headers
+    if (!authorization){
+        return res.status(401).json({ mensagem: "Para acessar este recurso um token de autenticação válido deve ser enviado." })
+    }
+
+    try{
+        const token = authorization.split(' ')[1]
+        const { id } = jwt.verify(token, senhaHash)
+        const usuario = await knex('usuarios').select('*').where('id', id)   
+        
+        req.usuario = usuario[0]
+        
+        return res.status(200).json({
+            id: req.usuario.id,
+            nome: req.usuario.nome,
+            email: req.usuario.email
+        })
+
+    } catch(error){
+        if('jwt expired'){
+            return res.status(400).json('Sua sessão terminou, por favor efetue novamente seu login.')
+        }
+        return res.status(500).json(error.message)
+    }
+
+}
+
 module.exports = {
     cadastrarUsuario,
-    login
+    login,
+    detalharUsuario
 }
