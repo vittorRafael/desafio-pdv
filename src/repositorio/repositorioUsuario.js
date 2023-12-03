@@ -8,15 +8,19 @@ const repositorioUsuario = {
             throw error;
         }
     },
-    encontrarUsuario: async (email) => {
+    encontrarUsuario: async (emailOuId) => {
         try {
-            const usuario = await knex('usuarios').select('*').where('email', email);
-            return usuario;
+            if (isNaN(emailOuId)) {
+                const usuario = await knex('usuarios').select('*').where('email', emailOuId);
+                return usuario;
+            } else {
+                const usuario = await knex('usuarios').select('*').where('id', emailOuId);
+                return usuario;
+            }
         } catch (error) {
             throw error;
         }
     }
 }
-
 
 module.exports = repositorioUsuario
