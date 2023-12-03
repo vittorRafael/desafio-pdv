@@ -5,21 +5,21 @@ const senhaHash = require('../seguranca/senha_hash');
 const jwt = require('jsonwebtoken');
 
 const cadastrarUsuario = async (req, res) => {
-    const { nome, email, senha } = req.body
+    const { nome, email, senha } = req.body;
     try {
-        const senhaCriptografada = await bcrypt.hash(senha, 10)
+        const senhaCriptografada = await bcrypt.hash(senha, 10);
         const usuario = {
             nome,
             email,
             senha: senhaCriptografada
-        }
-        await repositorioUsuario.cadastrarUsuario(usuario)
-        return res.status(200).json("Usuário cadastrado com sucesso!")
+        };
+        await repositorioUsuario.cadastrarUsuario(usuario);
+        return res.status(200).json("Usuário cadastrado com sucesso!");
     } catch (error) {
         if (error.code === '23505') {
-            return res.status(404).json("Email fornecido já cadastrado!")
+            return res.status(404).json("Email fornecido já cadastrado!");
         }
-        return res.status(400).json(error.message)
+        return res.status(400).json(error.message);
     }
 };
 
@@ -38,8 +38,16 @@ const login = async (req, res) => {
 };
 
 const detalharUsuario = async (req, res) => {
-    const { senha: _, ...usuario } = req.usuario
-    return res.status(200).json({ usuario })
+    try {
+        const usuarioParaDetalhar = {
+            id: req.usuarioEncontrado.id,
+            nome: req.usuarioEncontrado.nome,
+            email: req.usuarioEncontrado.email
+        };
+        return res.status(200).json(usuarioParaDetalhar);
+    } catch (error) {
+        return res.status(500).json(error.message);
+    }
 };
 
 const atualizarUsuario = async (req, res) => {

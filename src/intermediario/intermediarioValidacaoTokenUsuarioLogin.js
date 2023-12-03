@@ -9,13 +9,18 @@ const intermediarioValidarTokenUsuario = async (req, res, next) => {
     }
     try {
         const token = authorization.split(' ')[1];
-        const { id } = jwt.verify(token, process.env.JWT_PASS);
-        const usuarioEncontrado = repositorioUsuario.encontrarUsuario(id);
+
+        const usuarioLogado = await jwt.verify(token, process.env.JWT_PASS);
+        const usuarioEncontrado = await repositorioUsuario.encontrarUsuario(usuarioLogado.id.id);
         req.usuarioEncontrado = usuarioEncontrado[0];
-        next()
+        return next();
     } catch (error) {
-        if ('jwt expired') {
+        console.log(error);
+        if (error.message === 'jwt expired') {
             return res.status(400).json('Sua sessão terminou, por favor efetue novamente seu login.')
+        }
+        if (error.message === 'jwt must be provided') {
+            return res.status(400).json('Para acessar este recurso um token de autenticação necessário deve ser enviado.')
         }
         return res.status(500).json(error.message)
     }
