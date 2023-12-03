@@ -9,6 +9,6 @@ const modeloUsuario = joi.object({
         .required(),
     senha: joi.string()
         .required()
-})
+});
 
 module.exports = modeloUsuario;

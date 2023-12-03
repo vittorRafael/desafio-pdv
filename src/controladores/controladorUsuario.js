@@ -51,44 +51,23 @@ const detalharUsuario = async (req, res) => {
 };
 
 const atualizarUsuario = async (req, res) => {
-    let { nome, email, senha } = req.body;
-    const { id } = req.usuario;
-
-    if (!nome && !email && !senha) {
-        return res.status(404).json('É obrigatório informar ao menos um campo para atualização');
-    }
-
+    const { nome, email, senha } = req.body;
     try {
-        const usuarioExiste = await knex('usuarios').where({ id }).first();
-
-        if (!usuarioExiste) {
-            return res.status(404).json('Usuario não encontrado');
-        }
-
         if (senha) {
             senha = await bcrypt.hash(senha, 10);
         }
-
-        if (email !== req.usuario.email) {
-            const emailUsuarioExiste = await knex('usuarios').where({ email }).first();
-
-            if (emailUsuarioExiste) {
-                return res.status(404).json('O Email já existe.');
+        if (email !== req.usuarioEncontrado.email) {
+            const emailUsuarioExiste = await repositorioUsuario.encontrarUsuario(email);
+            if (emailUsuarioExiste.length > 0) {
+                return res.status(400).json('O Email já existe.');
             }
         }
-
-        const usuarioAtualizado = await knex('usuarios')
-            .where({ id })
-            .update({
-                nome,
-                email,
-                senha
-            });
-
-        if (!usuarioAtualizado) {
-            return res.status(400).json("O usuario não foi atualizado");
+        const usuarioParaAtualizar = {
+            nome,
+            email,
+            senha
         }
-
+        await repositorioUsuario.atualizarUsuario(req.usuarioEncontrado.id, usuarioParaAtualizar);
         return res.status(200).json('Usuario foi atualizado com sucesso.');
     } catch (error) {
         console.log(error);

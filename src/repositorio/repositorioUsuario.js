@@ -20,6 +20,22 @@ const repositorioUsuario = {
         } catch (error) {
             throw error;
         }
+    },
+    atualizarUsuario: async (idUsuarioParaAtualizar, dadosParaAtualizar) => {
+        try {
+            console.log(idUsuarioParaAtualizar);
+            const usuarioParaAtualizar = await knex('usuarios').select('*').where('id', idUsuarioParaAtualizar);
+            const usuarioAtualizado = await knex('usuarios')
+                .where({ id: idUsuarioParaAtualizar })
+                .update({
+                    nome: dadosParaAtualizar.nome ?? usuarioParaAtualizar.nome,
+                    email: dadosParaAtualizar.email ?? usuarioParaAtualizar.email,
+                    senha: dadosParaAtualizar.senha ?? usuarioParaAtualizar.senha
+                });
+            return usuarioAtualizado;
+        } catch (error) {
+            throw error;
+        }
     }
 }
 
