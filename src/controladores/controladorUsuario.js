@@ -13,8 +13,13 @@ const cadastrarUsuario = async (req, res) => {
             email,
             senha: senhaCriptografada
         };
-        await repositorioUsuario.cadastrarUsuario(usuario);
-        return res.status(200).json("Usuário cadastrado com sucesso!");
+        const usuarioCadastrado = await repositorioUsuario.cadastrarUsuario(usuario);
+        console.log(usuarioCadastrado);
+        return res.status(200).json({
+            id: usuarioCadastrado[0].id,
+            nome: usuarioCadastrado[0].nome,
+            email: usuarioCadastrado[0].email
+        });
     } catch (error) {
         if (error.code === '23505') {
             return res.status(404).json("Email fornecido já cadastrado!");
@@ -27,9 +32,7 @@ const login = async (req, res) => {
     try {
         const token = jwt.sign({ id: req.usuarioEncontrado }, senhaHash, { expiresIn: '8h' });
         return res.status(201).json({
-            usuario: {
-                nome: req.usuarioEncontrado.nome, token
-            }
+            nome: req.usuarioEncontrado.nome, token
         });
 
     } catch (error) {

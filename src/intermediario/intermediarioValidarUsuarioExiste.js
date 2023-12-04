@@ -14,7 +14,7 @@ const intermediarioValidarUsuarioExiste = {
                 return res.status(400).json("Email ou senha inválidos!");
             }
             req.usuarioEncontrado = usuarioEncontrado[0];
-            next();
+            return next();
         } catch (error) {
             console.log(error);
             return res.status(400).json(error.message);

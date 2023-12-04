@@ -3,7 +3,8 @@ const knex = require('../config/configBancoDeDados');
 const repositorioUsuario = {
     cadastrarUsuario: async (usuario) => {
         try {
-            const usuarioCadastrado = await knex('usuarios').insert(usuario);
+            const usuarioCadastrado = await knex('usuarios').insert(usuario).returning('*');
+            return usuarioCadastrado;
         } catch (error) {
             throw error;
         }
