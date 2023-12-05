@@ -1,15 +1,11 @@
-const express = require('express')
-const rotas = require('./rotas')
-const cors = require('cors')
+require('dotenv').config();
+const express = require('express');
+const rotas = require('./rotas/rotas');
+const app = express();
+const PORT = process.env.PORT ?? 3000;
 
-const server = express()
+app.use(express.json(), rotas);
 
-server.use(express.json())
-server.use(cors())
-server.use(rotas)
-
-const porta = process.env.PORT || 3000
-
-server.listen(porta, () => {
-    console.log(`Conectado a porta ${porta}`)
-})
+app.listen(PORT, () =>
+    console.log(`Servidor rodando na porta ${PORT}`)
+)
