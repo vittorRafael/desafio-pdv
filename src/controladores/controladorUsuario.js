@@ -58,6 +58,8 @@ const atualizarUsuario = async (req, res) => {
     try {
         if (senha) {
             senha = await bcrypt.hash(senha, 10);
+        } else {
+            return res.status(400).json('O campo senha deve ser informado.');
         }
         if (email !== req.usuarioEncontrado.email) {
             const emailUsuarioExiste = await repositorioUsuario.encontrarUsuario(email);
