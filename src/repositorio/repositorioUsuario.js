@@ -26,7 +26,7 @@ const repositorioUsuario = {
         try {
             console.log(idUsuarioParaAtualizar);
             const usuarioParaAtualizar = await knex('usuarios').select('*').where('id', idUsuarioParaAtualizar);
-            let usuarioAtualizado = await knex('usuarios')
+            const usuarioAtualizado = await knex('usuarios')
                 .where({ id: idUsuarioParaAtualizar })
                 .update({
                     nome: dadosParaAtualizar.nome ?? usuarioParaAtualizar.nome,

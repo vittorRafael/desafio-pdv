@@ -67,7 +67,7 @@ const atualizarUsuario = async (req, res) => {
                 return res.status(400).json('O Email já existe.');
             }
         }
-        const usuarioParaAtualizar = {
+        let usuarioParaAtualizar = {
             nome,
             email,
             senha
