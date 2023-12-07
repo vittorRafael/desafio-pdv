@@ -17,6 +17,7 @@ const cadastrarCliente = async (req, res) => {
         }) 
         
     } catch(error){
+
         if(error.code === '23505'){
             if (error.constraint === 'clientes_email_key') {
                 return res.status(404).json("Email fornecido já cadastrado!");
