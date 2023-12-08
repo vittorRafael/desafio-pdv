@@ -12,6 +12,14 @@ CREATE TABLE categorias (
   descricao text
 );
 
+CREATE TABLE produtos (
+	id SERIAL PRIMARY KEY,
+  descricao VARCHAR(255) NOT NULL,
+  quantidade_estoque INTEGER NOT NULL,
+  valor INTEGER NOT NULL,
+  categoria_id INTEGER REFERENCES categorias(id) NOT NULL
+);
+
 CREATE TABLE clientes (
 	id SERIAL PRIMARY KEY,
   nome VARCHAR(255) NOT NULL,
@@ -23,7 +31,7 @@ CREATE TABLE clientes (
   bairro VARCHAR(255) DEFAULT NULL,
   cidade VARCHAR(255) DEFAULT NULL,
   estado VARCHAR(255) DEFAULT NULL
-)
+);
 
 INSERT INTO categorias (descricao) VALUES 
 ('Informática'), ('Celulares'), ('Beleza e Perfumaria'), ('Mercado'), 
