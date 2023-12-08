@@ -1,5 +1,3 @@
-
-
 const intermediarioValidacaoBodyGenrico = {
     validarBodyRequisicao: modeloJoiValidacao => async (req, res, next) => {
         try {
